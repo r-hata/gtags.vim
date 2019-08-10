@@ -175,9 +175,13 @@
 "	[$HOME/.vimrc]
 "	let Gtags_Auto_Map = 1
 "
-if exists('loaded_gtags')
+if exists('g:loaded_gtags')
     finish
 endif
+let g:loaded_gtags = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 "
 " global command name
@@ -353,9 +357,11 @@ function! s:execute_load(option, long_option, pattern)
     let l:option = l:option . '--result=' . g:Gtags_Result . ' -q'
     let l:option = l:option . s:trim_option(a:option)
     if l:isfile == 1
-        let l:cmd = s:global_command . ' ' . l:option . ' ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char
+        let l:cmd = s:global_command . ' ' . l:option . ' ' . g:Gtags_Shell_Quote_Char
+              \. a:pattern . g:Gtags_Shell_Quote_Char
     else
-        let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char
+        let l:cmd = s:global_command . ' ' . l:option . 'e ' . g:Gtags_Shell_Quote_Char
+              \. a:pattern . g:Gtags_Shell_Quote_Char
     endif
 
     let l:result = system(l:cmd)
@@ -379,7 +385,8 @@ function! s:execute_load(option, long_option, pattern)
         elseif l:option =~# 'g'
             call s:error('Line which matches to ' . a:pattern . ' not found.')
         else
-            call s:error('Tag which matches to ' . g:Gtags_Shell_Quote_Char . a:pattern . g:Gtags_Shell_Quote_Char . ' not found.')
+            call s:error('Tag which matches to ' . g:Gtags_Shell_Quote_Char . a:pattern
+                  \. g:Gtags_Shell_Quote_Char . ' not found.')
         endif
         return
     endif
@@ -490,4 +497,6 @@ if g:Gtags_Auto_Map == 1
     :nmap <C-p> :cp<CR>
     :nmap <C-\><C-]> :GtagsCursor<CR>
 endif
-let loaded_gtags = 1
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
