@@ -1,13 +1,14 @@
 " File: gtags.vim
-" Author: Tama Communications Corporation
+" Author: Ryosuke Hata
 " Version: 0.6
-" Last Modified: September 6, 2011
+" Last Modified: August 11, 2019
 "
 " Copyright and licence
 " ---------------------
-" Copyright (c) 2004, 2008, 2010, 2011 Tama Communications Corporation
+" Copyright (c) 2004, 2008, 2010, 2011 Tama Communications Corporation,
+"               2019 Ryosuke Hata
 "
-" This file is part of GNU GLOBAL.
+" This program is forked vim-scripts/gtags.vim <https://github.com/vim-scripts/gtags.vim>.
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
